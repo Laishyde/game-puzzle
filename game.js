@@ -1,16 +1,19 @@
 // Configuração inicial do quebra-cabeça
-const puzzleConfig = [0, 1, 2, 3, 4, 5, 6, 7, 8]; // Números representando a posição das peças
-const winConfig = [0, 1, 2, 3, 4, 5, 6, 7, 8]; // Configuração de vitória
+const puzzleSize = 5; // Tamanho do lado do quebra-cabeça (número de peças por linha/coluna)
+const numPieces = puzzleSize * puzzleSize; // Número total de peças
+
+const puzzleConfig = Array.from({ length: numPieces }, (_, index) => index); // Números representando a posição das peças
+const winConfig = Array.from({ length: numPieces }, (_, index) => index); // Configuração de vitória
 
 function movePiece(index) {
-    const emptyIndex = puzzleConfig.indexOf(8); // Índice da peça vazia
+    const emptyIndex = puzzleConfig.indexOf(numPieces - 1); // Índice da peça vazia
 
     // Verifica se a peça clicada está adjacente à peça vazia
     if (
-        (index === emptyIndex - 1 && index % 3 !== 2) ||
-        (index === emptyIndex + 1 && index % 3 !== 0) ||
-        index === emptyIndex - 3 ||
-        index === emptyIndex + 3
+        (index === emptyIndex - 1 && index % puzzleSize !== puzzleSize - 1) ||
+        (index === emptyIndex + 1 && index % puzzleSize !== 0) ||
+        index === emptyIndex - puzzleSize ||
+        index === emptyIndex + puzzleSize
     ) {
         // Troca a posição da peça clicada com a peça vazia
         [puzzleConfig[index], puzzleConfig[emptyIndex]] = [
@@ -29,9 +32,9 @@ function updatePuzzle() {
     // Atualiza a posição das peças no quebra-cabeça
     for (let i = 0; i < pieces.length; i++) {
         const pieceIndex = puzzleConfig[i];
-        const row = Math.floor(pieceIndex / 3);
-        const col = pieceIndex % 3;
-        const position = `${col * -100}px ${row * -100}px`;
+        const row = Math.floor(pieceIndex / puzzleSize);
+        const col = pieceIndex % puzzleSize;
+        const position = `${col * -100}% ${row * -100}%`;
         pieces[i].style.backgroundPosition = position;
     }
 }
@@ -50,7 +53,15 @@ function shufflePieces() {
         [puzzleConfig[i], puzzleConfig[j]] = [puzzleConfig[j], puzzleConfig[i]];
     }
 
+    // Verifica se a configuração inicial é a configuração de vitória e, se for, embaralha novamente
+    if (JSON.stringify(puzzleConfig) === JSON.stringify(winConfig)) {
+        shufflePieces();
+    }
+
     updatePuzzle();
 }
 
 shufflePieces();
+
+
+

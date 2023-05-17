@@ -1,34 +1,49 @@
-   body{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    background-color: #FFA366;
-    height: 100vh;
-    width: 100%;
- 
-   }
-   .content{
-    display: flex;
-    justify-content: center;
-    margin-top: 150px;
+   body {
+       margin: 0;
+       padding: 0;
+       box-sizing: border-box;
+       background-color: #11468C;
+       height: 100vh;
+       width: 100%;
 
    }
-   
-   #puzzle {
-       width: 300px;
-       height: 300px;
-       border: 1px solid black;
+
+   .content {
        display: flex;
-       flex-wrap: wrap;
-          
+       justify-content: center;
+       margin-top: 150px;
+
+   }
+
+   .container {
+
+       width: 300px;
+       /* Largura do contêiner do quebra-cabeça */
+       height: 300px;
+       /* Altura do contêiner do quebra-cabeça */
+       display: grid;
+       grid-template-columns: repeat(5, 1fr);
+       grid-template-rows: repeat(5, 1fr);
+       gap: 5px;
+       /* Espaçamento entre as peças */
    }
 
    .piece {
-       width: 100px;
-       height: 100px;
+       width: 100%;
+       /* Largura de cada peça */
+       height: 100%;
+       /* Altura de cada peça */
+       background-image: url("./assets/puzzle.png");
+       /* Imagem de fundo para cada peça */
        background-size: 300px 300px;
-       background-image: url("./assets/goku_an6e.jpg");
+       /* Tamanho total da imagem do quebra-cabeça */
        border: 1px solid black;
-       box-sizing: border-box;
-       cursor: pointer;
+       /* Borda para cada peça */
+   }
+   img{
+    width: 300px;
+   }
+   footer{
+    display: flex;
+    justify-content: center;
    }
